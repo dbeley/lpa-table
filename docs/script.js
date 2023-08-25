@@ -22,10 +22,10 @@ $(document).ready(function() {
 			"aLengthMenu": [[10, 25, 50, 100, 1000, -1], [10, 25, 50, 100, 1000, "All"]],
 			"pageLength": 25,
             "scrollToTop": true,
-			"order": [[9, 'desc']],
+			"order": [[8, 'desc']],
     		"columnDefs": [
       	  	  { type: numbersType, targets: [2, 3] },
-      	  	  { targets: [8, 9], render: DataTable.render.datetime('x', 'YYYY-MM-DD', 'en') },
+      	  	  { targets: [7, 8], render: DataTable.render.datetime('x', 'YYYY-MM-DD', 'en') },
       	      { width: "10%", targets: [0, 1] },
     		],
     		"responsive": true
