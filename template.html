@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Linux Phone Apps Table - Explore data from linuxphoneapps.org</title>
+  <!-- Foundation -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css" rel="stylesheet"/>
+  <link href="https://cdn.datatables.net/v/zf/jq-3.7.0/jszip-3.10.1/dt-1.13.5/b-2.4.0/b-colvis-2.4.0/b-html5-2.4.0/b-print-2.4.0/date-1.5.0/r-2.5.0/sb-1.5.0/datatables.min.css" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+	<h1>
+	Linux Phone Apps Table
+	</h1>
+ 	<p><b><a href="https://github.com/dbeley/lpa-table">Source code</a></b></p>
+	<p>Explore data from linuxphoneapps.org in a easy-to-use html table. Data was last updated on <b>${date_update}</b>.</p>
+<table id="insights" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	${header}
+	${table_data}
+</table>
+<!-- Foundation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/v/zf/jq-3.7.0/jszip-3.10.1/dt-1.13.5/b-2.4.0/b-colvis-2.4.0/b-html5-2.4.0/b-print-2.4.0/date-1.5.0/r-2.5.0/sb-1.5.0/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js'></script>
+<script src='https://cdn.datatables.net/plug-ins/1.13.5/sorting/absolute.js'></script>
+<script src='https://cdn.datatables.net/plug-ins/1.13.5/sorting/datetime-moment.js'></script>
+<script src='https://cdn.datatables.net/plug-ins/preview/scrollToTop/dataTables.scrollToTop.min.js'></script>
+<script src="./script.js"></script>
+</body>
+</html>

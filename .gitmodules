@@ -1,0 +1,3 @@
+[submodule "linuxphoneapps.frama.io"]
+	path = linuxphoneapps.frama.io
+	url = https://framagit.org/linuxphoneapps/linuxphoneapps.frama.io.git
