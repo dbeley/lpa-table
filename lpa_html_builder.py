@@ -19,12 +19,8 @@ df = df.astype(
 )
 df = df.fillna(
     {
-        "repository_forks_count": 0,
-        "repository_stars_count": 0,
         "repository_domain": "",
         "description": "",
-        "created": "",
-        "last_updated": "",
     }
 )
 
@@ -38,8 +34,6 @@ header = (
     "<th>Categories</th>\n"
     "<th>Compatibility</th>\n"
     "<th>Frameworks</th>\n"
-    "<th>Created</th>\n"
-    "<th>Last Updated</th>\n"
     "<th>Description</th>\n"
     "</tr>\n"
     "</thead>\n"
@@ -64,10 +58,6 @@ for index, row in df.iterrows():
         f"<td>{row['compatibility']}</td>"
         "\n"
         f"<td>{row['frameworks']}</td>"
-        "\n"
-        f"<td>{row['created']}</td>"
-        "\n"
-        f"<td>{row['last_updated']}</td>"
         "\n"
         f"<td>{row['description']}</td>"
         "\n"
