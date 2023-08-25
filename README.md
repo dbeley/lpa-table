@@ -1,4 +1,4 @@
-# LPATable
+# lpa-table
 
 An alternative front-end for the data hosted at [LinuxPhoneApps.org](https://linuxphoneapps.org/).
 

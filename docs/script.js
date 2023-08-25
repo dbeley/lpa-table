@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	//Only needed for the filename of export files.
 	//Normally set in the title tag of your page.
-	document.title='Linux Phone Apps Table - Explore data from linuxphoneapps.org';
+	document.title='Linux Phone Apps Table - Explore data from LinuxPhoneApps.org';
   	var numbersType = $.fn.dataTable.absoluteOrderNumber( [
     	{ value: 'N/A', position: 'bottom' }
   	] );
