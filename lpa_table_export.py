@@ -91,7 +91,6 @@ for file in list_files:
         {
             "name": app_config.get("title", ""),
             "url": f"https://linuxphoneapps.org/apps/{app_id}",
-            # "id": app_id,
             "repository": repository,
             **repository_stats,
             "repository_domain": repository_domain,
@@ -99,7 +98,6 @@ for file in list_files:
             "categories": categories,
             "compatibility": mobile_compatibility,
             "frameworks": frameworks,
-            # "packaged": app_config.get("taxonomies", {}).get("packaged_in"),
             "created": app_config.get("date"),
             "last_updated": app_config.get("updated"),
         }
