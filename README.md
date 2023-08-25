@@ -1,6 +1,6 @@
 # LPATable
 
-An alternative front-end for the data hosted at LinuxPhoneApps.org.
+An alternative front-end for the data hosted at [LinuxPhoneApps.org](https://linuxphoneapps.org/).
 
 ## Usage
 
@@ -17,3 +17,7 @@ If you want to manually create an export:
 - Github: number of stars, forks
 - Gitlab : number of stars, forks
 - Codeberg : number of stars, forks
+
+# Credits
+
+- [https://linuxphoneapps.org/](https://framagit.org/linuxphoneapps/linuxphoneapps.frama.io)
