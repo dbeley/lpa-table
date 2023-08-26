@@ -35,11 +35,17 @@ def get_github_repository_data(g: Github, repository_name: str):
 def get_gitlab_repository_data(gl: Gitlab, repository_name: str):
     try:
         repo = gl.projects.get(repository_name)
+        last_commit_date = repo.commits.list(per_page=1, get_all=False)[
+            0
+        ].committed_date
     except GitlabGetError:
         logger.warning(f"Repository {repository_name} was not found on Gitlab.")
         return {}
     return {
         "repository_stars_count": repo.star_count,
+        "repository_last_update": int(
+            datetime.strptime(last_commit_date[0:10], "%Y-%m-%d").timestamp()
+        ),
     }
 
 
