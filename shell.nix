@@ -11,6 +11,8 @@ in pkgs.mkShell rec {
     python311Packages.pandas
     python311Packages.pygithub
     python311Packages.python-gitlab
+    python311Packages.beautifulsoup4
+    python311Packages.lxml
 
     pre-commit
   ];

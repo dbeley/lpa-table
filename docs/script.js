@@ -25,6 +25,7 @@ $(document).ready(function() {
 			"order": [[2, 'desc']],
     		"columnDefs": [
       	  	  { type: numbersType, targets: [2, 3] },
+              { targets: [3], render: DataTable.render.datetime('x', 'YYYY-MM-DD', 'en') },
       	      { width: "10%", targets: [0, 1] },
     		],
     		"responsive": true

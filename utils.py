@@ -3,10 +3,12 @@ import logging
 import time
 
 import requests
+from datetime import datetime
 from github import Github
 from github.GithubException import RateLimitExceededException, UnknownObjectException
 from gitlab import Gitlab
 from gitlab.exceptions import GitlabGetError
+from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +28,7 @@ def get_github_repository_data(g: Github, repository_name: str):
         repo = g.get_repo(repository_name)
     return {
         "repository_stars_count": repo.stargazers_count,
-        "repository_forks_count": repo.forks_count,
+        "repository_last_update": int(repo.updated_at.timestamp()),
     }
 
 
@@ -38,8 +40,21 @@ def get_gitlab_repository_data(gl: Gitlab, repository_name: str):
         return {}
     return {
         "repository_stars_count": repo.star_count,
-        "repository_forks_count": repo.forks_count,
     }
+
+
+def get_gitlab_repository_data_with_webscraping(repository_url: str):
+    try:
+        soup = BeautifulSoup(requests.get(repository_url).content, "lxml")
+        repository_stars_count = int(
+            soup.select("a.gl-button.star-count")[0].text.strip()
+        )
+        return {
+            "repository_stars_count": repository_stars_count,
+        }
+    except Exception as e:
+        logger.warning(f"Couldn't scrape {repository_url}: {e}")
+        return {}
 
 
 def get_codeberg_repository_data(repository_name: str):
@@ -48,6 +63,8 @@ def get_codeberg_repository_data(repository_name: str):
         json_result = result.json()
         return {
             "repository_stars_count": json_result.get("stars_count"),
-            "repository_forks_count": json_result.get("forks_count"),
+            "repository_last_update": datetime.strptime(
+                json_result.get("updated_at")[0:10], "%Y-%m-%d"
+            ),
         }
     return {}

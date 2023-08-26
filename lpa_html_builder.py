@@ -14,13 +14,13 @@ df = pd.read_csv("export.csv")
 df = df.astype(
     {
         "repository_stars_count": "Int64",
-        "repository_forks_count": "Int64",
     }
 )
 df = df.fillna(
     {
         "repository_domain": "",
         "description": "",
+        "repository_last_update": "",
     }
 )
 
@@ -30,6 +30,7 @@ header = (
     "<th>Name</th>\n"
     "<th>Repository</th>\n"
     "<th>Repository Stars Count</th>\n"
+    "<th>Repository Last Update</th>\n"
     "<th>Repository Domain</th>\n"
     "<th>Categories</th>\n"
     "<th>Compatibility</th>\n"
@@ -50,6 +51,8 @@ for index, row in df.iterrows():
         f"<td><a href='{row['repository']}'>{row['repository']}</a></td>"
         "\n"
         f"<td>{row['repository_stars_count']}</td>"
+        "\n"
+        f"<td>{row['repository_last_update']}</td>"
         "\n"
         f"<td>{row['repository_domain']}</td>"
         "\n"

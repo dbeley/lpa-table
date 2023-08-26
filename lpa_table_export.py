@@ -11,6 +11,7 @@ from utils import (
     get_codeberg_repository_data,
     get_github_repository_data,
     get_gitlab_repository_data,
+    get_gitlab_repository_data_with_webscraping,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s :: %(message)s")
@@ -56,14 +57,18 @@ def _get_repository_stats(repository: str, repository_domain: str) -> dict[str, 
             return get_gitlab_repository_data(
                 REPOSITORY_APIS["invent.kde.org"], repository_name
             )
+        case "gitlab.gnome.org" | "source.puri.sm" | "gitlab.manjaro.org":
+            return get_gitlab_repository_data_with_webscraping(repository)
     return {}
 
 
 list_files = Path("linuxphoneapps.frama.io/content/apps").glob("**/*.md")
 list_data = []
-for file in list_files:
+for index, file in enumerate(list_files, 1):
     if str(file.name) in IGNORED_FILES:
         continue
+    if index > 30:
+        break
     logger.info(str(file))
     with file.open() as f:
         data = [line for line in f.readlines()]
@@ -107,7 +112,6 @@ df = pd.DataFrame.from_records(list_data)
 df = df.astype(
     {
         "repository_stars_count": "Int64",
-        "repository_forks_count": "Int64",
     }
 )
 df = df.sort_values(by=["name"])
