@@ -12,6 +12,7 @@ from utils import (
     get_github_repository_data,
     get_gitlab_repository_data,
     get_gitlab_repository_data_with_webscraping,
+    get_sourcehunt_repository_data_with_webscraping,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s :: %(message)s")
@@ -59,6 +60,8 @@ def _get_repository_stats(repository: str, repository_domain: str) -> dict[str, 
             )
         case "gitlab.gnome.org" | "source.puri.sm" | "gitlab.manjaro.org":
             return get_gitlab_repository_data_with_webscraping(repository)
+        case "sr.ht" | "git.sr.ht":
+            return get_sourcehunt_repository_data_with_webscraping(repository)
     return {}
 
 

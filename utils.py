@@ -70,3 +70,23 @@ def get_codeberg_repository_data(repository_name: str):
             ),
         }
     return {}
+
+
+def get_sourcehunt_repository_data_with_webscraping(repository_url: str):
+    try:
+        soup = BeautifulSoup(requests.get(repository_url).content, "lxml")
+        commit_list = soup.select("small.pull-right a span")
+        if len(commit_list) >= 1:
+            repository_last_update = int(
+                datetime.strptime(
+                    commit_list[0].get("title")[0:10], "%Y-%m-%d"
+                ).timestamp()
+            )
+            return {
+                "repository_stars_count": 0,  # sourcehunt doesn't support starring projects
+                "repository_last_update": repository_last_update,
+            }
+        return {}
+    except Exception as e:
+        logger.warning(f"Couldn't scrape {repository_url}: {e}")
+        return {}
