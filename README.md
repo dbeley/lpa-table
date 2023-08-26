@@ -14,9 +14,9 @@ If you want to manually create an export:
 
 ## External data
 
-- Github: number of stars, forks
-- Gitlab : number of stars, forks
-- Codeberg : number of stars, forks
+- Github: number of stars, last repo update
+- Gitlab : number of stars
+- Codeberg : number of stars, last repo update
 
 # Credits
 
