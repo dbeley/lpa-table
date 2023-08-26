@@ -67,8 +67,6 @@ list_data = []
 for index, file in enumerate(list_files, 1):
     if str(file.name) in IGNORED_FILES:
         continue
-    if index > 30:
-        break
     logger.info(str(file))
     with file.open() as f:
         data = [line for line in f.readlines()]

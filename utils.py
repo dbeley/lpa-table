@@ -63,8 +63,10 @@ def get_codeberg_repository_data(repository_name: str):
         json_result = result.json()
         return {
             "repository_stars_count": json_result.get("stars_count"),
-            "repository_last_update": datetime.strptime(
-                json_result.get("updated_at")[0:10], "%Y-%m-%d"
+            "repository_last_update": int(
+                datetime.strptime(
+                    json_result.get("updated_at")[0:10], "%Y-%m-%d"
+                ).timestamp()
             ),
         }
     return {}
