@@ -96,7 +96,7 @@ for index, file in enumerate(list_files, 1):
     list_data.append(
         {
             "name": app_config.get("title", ""),
-            "url": f"https://linuxphoneapps.org/apps/{app_id}",
+            "url": f"https://linuxphoneapps.org/apps/{app_id.lower()}",
             "repository": repository,
             **repository_stats,
             "repository_domain": repository_domain,
