@@ -21,6 +21,7 @@ df = df.fillna(
         "repository_domain": "",
         "description": "",
         "repository_last_update": "",
+        "distribution": "",
     }
 )
 
