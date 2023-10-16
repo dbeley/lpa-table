@@ -4,7 +4,7 @@ import tomllib
 from pathlib import Path
 
 import pandas as pd
-#from github import Github
+from github import Github
 from gitlab import Gitlab
 
 from utils import (
