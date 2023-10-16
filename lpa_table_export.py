@@ -85,6 +85,12 @@ for index, file in enumerate(list_files, 1):
         app_config.get("taxonomies", {}).get("mobile_compatibility", [])[0].title()
     )
     frameworks = ", ".join(app_config.get("taxonomies", {}).get("frameworks", []))
+    packaged_in = ", ".join(
+        [
+            word.title()
+            for word in app_config.get("taxonomies", {}).get("packaged_in", [])
+        ]
+    )
     categories = ", ".join(
         [
             word.title()
@@ -104,6 +110,7 @@ for index, file in enumerate(list_files, 1):
             "categories": categories,
             "compatibility": mobile_compatibility,
             "frameworks": frameworks,
+            "distribution": packaged_in,
             "created": app_config.get("date"),
             "last_updated": app_config.get("updated"),
         }
