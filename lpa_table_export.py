@@ -75,10 +75,13 @@ for index, file in enumerate(list_files, 1):
         data = [line for line in f.readlines()]
     app_config = tomllib.loads("".join(data).split("+++")[1])
 
+    app_id = app_config.get("extra", {}).get("app_id")
+    if not app_id:
+        continue
+
     repository = app_config.get("extra", {}).get("repository")
     repository_domain = repository.split("://")[1].split("/")[0] if repository else ""
     repository_stats = _get_repository_stats(repository, repository_domain)
-    app_id = app_config.get("extra", {}).get("app_id")
     if len(app_config.get("taxonomies", {}).get("mobile_compatibility", [])) > 1:
         logger.warning("More than one item in mobile_compatibility")
     mobile_compatibility = (

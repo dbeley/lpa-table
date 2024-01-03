@@ -4,6 +4,11 @@ An alternative front-end for the data hosted at [LinuxPhoneApps.org](https://lin
 
 ## Usage
 
+```
+git submodule init
+git submodule update
+```
+
 The data should be re-generated every monday.
 
 If you want to manually create an export:
