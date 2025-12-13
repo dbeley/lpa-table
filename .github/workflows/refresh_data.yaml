@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
-          submodules: recursive
+          submodules: false
       - name: Update submodules
         run: |
-          git submodule update --init --recursive
-          git submodule update --remote --recursive
+          git submodule update --init
+          git submodule update --remote
       - name: Set up Python 3.11
         uses: actions/setup-python@v2
         with:
