@@ -28,3 +28,22 @@ If you want to manually create an export:
 # Credits
 
 - [https://linuxphoneapps.org/](https://framagit.org/linuxphoneapps/linuxphoneapps.frama.io)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request or open an issue for bugs, features, or documentation improvements.
+
+### Development
+
+1. Clone the repository with submodules:
+   ```bash
+   git clone --recurse-submodules https://github.com/dbeley/lpa-table
+   cd lpa-table
+   ```
+2. Copy `.env.example` to `.env` and add your API tokens
+3. Run `python lpa_table_export.py` to generate data
+4. Run `python lpa_html_builder.py` to generate the website
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
