@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 REPOSITORY_APIS = {
     "github.com": Github(os.environ.get("GITHUB_TOKEN")),
-    "gitlab.com": Gitlab(private_token=os.environ.get("GILAB_TOKEN")),
+    "gitlab.com": Gitlab(private_token=os.environ.get("GITLAB_TOKEN")),
     "invent.kde.org": Gitlab(
         url="https://invent.kde.org", private_token=os.environ.get("GILAB_KDE_TOKEN")
     ),
