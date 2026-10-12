@@ -32,14 +32,31 @@ REPOSITORY_APIS = {
 IGNORED_FILES = ["_index.md"]
 
 
+REPOSITORY_SUB_RESOURCE_MARKERS = (
+    "/-/",
+    "/tree/",
+    "/blob/",
+    "/issues",
+    "/merge_requests",
+    "/wikis",
+    "/releases",
+    "/commits",
+)
+
+
 def _extract_repository_name(repository: str, repository_domain: str) -> str:
     repository_name = (
         repository.split("://")[-1].split(f"{repository_domain}/")[-1].strip("/")
     )
-    if repository_name.count("/") > 1:
-        repository_name = (
-            repository_name.split("/")[0] + "/" + repository_name.split("/")[1]
-        )
+    if repository_name.endswith(".git"):
+        repository_name = repository_name[: -len(".git")]
+    # Only strip sub-resources of the repository URL (a file, an issue, a
+    # branch...) instead of blindly keeping the first two path segments:
+    # GitLab projects can live in subgroups (e.g. World/design/palette).
+    for marker in REPOSITORY_SUB_RESOURCE_MARKERS:
+        if marker in repository_name:
+            repository_name = repository_name.split(marker)[0]
+            break
     return repository_name
 
 
