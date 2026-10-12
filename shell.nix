@@ -1,20 +1,18 @@
 with import <nixpkgs> { };
 
 let
-  pythonPackages = python3Packages;
-in pkgs.mkShell rec {
+  python = python312.withPackages (ps: [
+    ps.requests
+    ps.pandas
+    ps.pygithub
+    ps.python-gitlab
+    ps.beautifulsoup4
+    ps.lxml
+  ]);
+in
+pkgs.mkShell {
   buildInputs = [
-    pkgs.python311
-    python311Packages.pip
-
-    python311Packages.requests
-    python311Packages.pandas
-    python311Packages.pygithub
-    python311Packages.python-gitlab
-    python311Packages.beautifulsoup4
-    python311Packages.lxml
-
+    python
     pre-commit
   ];
-
 }
