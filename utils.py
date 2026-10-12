@@ -84,18 +84,21 @@ def get_gitlab_repository_data(gl: Gitlab, repository_name: str):
     }
 
 
-def get_gitlab_repository_data_with_webscraping(repository_url: str):
+def get_gitlab_project_stars_count(url: str, repository_name: str) -> dict:
+    """Read a project's star count through the GitLab API, unauthenticated.
+
+    Instances such as gitlab.gnome.org or source.puri.sm expose the v4 API
+    anonymously. Scraping their web UI used to work but now returns errors
+    (HTTP 406), which silently emptied the star count of ~130 apps.
+    """
     try:
-        soup = BeautifulSoup(requests.get(repository_url).content, "lxml")
-        repository_stars_count = int(
-            soup.select("a.gl-button.star-count")[0].text.strip()
-        )
-        return {
-            "repository_stars_count": repository_stars_count,
-        }
-    except Exception as e:
-        logger.warning(f"Couldn't scrape {repository_url}: {e}")
+        project = Gitlab(url).projects.get(repository_name)
+    except GitlabError as error:
+        logger.warning(f"Couldn't read {repository_name} on {url}: {error}")
         return {}
+    return {
+        "repository_stars_count": project.star_count,
+    }
 
 
 def get_codeberg_repository_data(repository_name: str):

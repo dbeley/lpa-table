@@ -31,7 +31,7 @@ instances, so the table is still refreshed instead of failing entirely.
 
 - Github: number of stars, last repo update
 - Gitlab (gitlab.com, invent.kde.org instances): number of stars, last repo update
-- Other Gitlab instances: number of stars
+- Other Gitlab instances (gitlab.gnome.org, source.puri.sm, gitlab.manjaro.org): number of stars, through the GitLab API
 - Codeberg: number of stars, last repo update
 - SourceHunt: last repo update
 
