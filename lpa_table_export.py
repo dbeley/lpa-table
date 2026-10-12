@@ -4,10 +4,10 @@ import tomllib
 from pathlib import Path
 
 import pandas as pd
-from github import Github
-from gitlab import Gitlab
+from github import Auth, Github
 
 from utils import (
+    build_gitlab_client,
     get_codeberg_repository_data,
     get_github_repository_data,
     get_gitlab_repository_data,
@@ -18,24 +18,45 @@ from utils import (
 logging.basicConfig(level=logging.INFO, format="%(levelname)s :: %(message)s")
 logger = logging.getLogger(__name__)
 
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+
 REPOSITORY_APIS = {
-    "github.com": Github(os.environ.get("GITHUB_TOKEN")),
-    "gitlab.com": Gitlab(private_token=os.environ.get("GITLAB_TOKEN")),
-    "invent.kde.org": Gitlab(
-        url="https://invent.kde.org", private_token=os.environ.get("GILAB_KDE_TOKEN")
+    "github.com": Github(auth=Auth.Token(GITHUB_TOKEN)) if GITHUB_TOKEN else Github(),
+    "gitlab.com": build_gitlab_client(
+        "https://gitlab.com", os.environ.get("GITLAB_TOKEN")
+    ),
+    "invent.kde.org": build_gitlab_client(
+        "https://invent.kde.org", os.environ.get("GITLAB_KDE_TOKEN")
     ),
 }
 IGNORED_FILES = ["_index.md"]
+
+
+REPOSITORY_SUB_RESOURCE_MARKERS = (
+    "/-/",
+    "/tree/",
+    "/blob/",
+    "/issues",
+    "/merge_requests",
+    "/wikis",
+    "/releases",
+    "/commits",
+)
 
 
 def _extract_repository_name(repository: str, repository_domain: str) -> str:
     repository_name = (
         repository.split("://")[-1].split(f"{repository_domain}/")[-1].strip("/")
     )
-    if repository_name.count("/") > 1:
-        repository_name = (
-            repository_name.split("/")[0] + "/" + repository_name.split("/")[1]
-        )
+    if repository_name.endswith(".git"):
+        repository_name = repository_name[: -len(".git")]
+    # Only strip sub-resources of the repository URL (a file, an issue, a
+    # branch...) instead of blindly keeping the first two path segments:
+    # GitLab projects can live in subgroups (e.g. World/design/palette).
+    for marker in REPOSITORY_SUB_RESOURCE_MARKERS:
+        if marker in repository_name:
+            repository_name = repository_name.split(marker)[0]
+            break
     return repository_name
 
 
